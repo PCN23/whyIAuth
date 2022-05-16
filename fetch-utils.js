@@ -10,7 +10,11 @@ export function getUser() {
 
 export async function signUpUser(email, password) {
     const response = await client.auth.signUp({ email, password });
-    return response.user;
+    if (response.user) {
+        return response.user;
+    } else {
+        console.error(response.error);
+    }
 }
 
 export async function signInUser(email, password) {
@@ -20,14 +24,11 @@ export async function signInUser(email, password) {
 
 export async function checkAuth() {
     const user = await getUser();
-    if (user ()) {
-        location.replace('/');
-    }
-
+    if (!user) location.replace('/');
 }
 
 export async function redirectIfLoggedIn() {
-    if (getUser ()) {
+    if (getUser()) {
         location.replace('./another-page');
     }
 }
