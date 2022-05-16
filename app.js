@@ -1,4 +1,4 @@
-import { redirectIfLoggedIn, signUpUser } from './fetch-utils.js';
+import { redirectIfLoggedIn, signupUser } from './fetch-utils.js';
 import { signInUser } from './fetch-utils.js';
 
 const signInForm = document.getElementById('sign-in');
@@ -16,9 +16,14 @@ signUpForm.addEventListener('submit', async (e) => {
     const data = new FormData(signUpForm);
 
     console.log({ email: data.get('email'), password: data.get('password') });
-    const user = await signUpUser(data.get('email'), data.get('password'));
-   
+    const user = await signupUser(data.get('email'), data.get('password'));
     console.log(user);
+
+    if (user) {
+        location.replace('./another-page');
+
+    }
+   
 });
 
 signInForm.addEventListener('submit', async (e) =>{
